@@ -1,19 +1,19 @@
+<h1 align="center">Marlin 2.1.X BUGFIX for BIQU B1</h1>
+<h2 align="center">2023 Project</h2>
 <p align="center"><img src="buildroot/share/pixmaps/logo/marlin-outrun-nf-500.png" height="250" alt="MarlinFirmware's logo" /></p>
 
-<h1 align="center">Marlin 3D Printer Firmware</h1>
+# BIQU-B1 with `BIGTREETECH SKR 2` motherboard
+-The default configuration files of this source code is the configuration of `BIGTREETECH SKR 2` on `BIQU-B1` printer, There is no need to modify the configuration unless new DIY features are needed.
 
+-Los archivos de configuracion predeterminados en este codigo  es la configuracion para `BIGTREETECH SKR 2` en la impresora `BIQU-B1`, no es necesario modificar la configuracion para este uso.
+
+# BIQU-B1 with `BIGTREETECH SKR V1.4` motherboard
+-The line 24 on the "CONFIGURATION.h" is a code that allows swapping the setup files for usage on the `BIGTREETECH SKR V1.4`.
+
+-La linea 24 en "CONFIGURATION.h" es un codigo que permite cambiar los archivos de configuracion para su uso en `BIGTREETECH SKR V1.4`.
 <p align="center">
-    <a href="/LICENSE"><img alt="GPL-V3.0 License" src="https://img.shields.io/github/license/marlinfirmware/marlin.svg"></a>
-    <a href="https://github.com/MarlinFirmware/Marlin/graphs/contributors"><img alt="Contributors" src="https://img.shields.io/github/contributors/marlinfirmware/marlin.svg"></a>
-    <a href="https://github.com/MarlinFirmware/Marlin/releases"><img alt="Last Release Date" src="https://img.shields.io/github/release-date/MarlinFirmware/Marlin"></a>
-    <a href="https://github.com/MarlinFirmware/Marlin/actions"><img alt="CI Status" src="https://github.com/MarlinFirmware/Marlin/actions/workflows/test-builds.yml/badge.svg"></a>
-    <a href="https://github.com/sponsors/thinkyhead"><img alt="GitHub Sponsors" src="https://img.shields.io/github/sponsors/thinkyhead?color=db61a2"></a>
-    <br />
-    <a href="https://fosstodon.org/@marlinfirmware"><img alt="Follow MarlinFirmware on Mastodon" src="https://img.shields.io/mastodon/follow/109450200866020466?domain=https%3A%2F%2Ffosstodon.org&logoColor=%2300B&style=social"></a>
+   
 </p>
-
-Additional documentation can be found at the [Marlin Home Page](https://marlinfw.org/).
-Please test this firmware and let us know if it misbehaves in any way. Volunteers are standing by!
 
 ## Marlin 2.1 Bugfix Branch
 
