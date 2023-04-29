@@ -262,16 +262,6 @@ G29_TYPE GcodeSuite::G29() {
   // Don't allow auto-leveling without homing first
   if (homing_needed_error()) G29_RETURN(false, false);
   
-    #if ENABLED(BLTOUCH)
-    if(!probe.is_exist()) {  // probe not exist
-      #if HAS_DISPLAY        // It's means that the Bltouch is not ready
-        ui.status_printf_P(0, PSTR("Bltouch not ready!"));
-      #endif
-      SERIAL_ECHO_MSG("(Optional) Please check whether your printer has Bltouch");
-      G29_RETURN(false);
-    }
-  #endif
-
   // 3-point leveling gets points from the probe class
   #if ENABLED(AUTO_BED_LEVELING_3POINT)
     vector_3 points[3];
