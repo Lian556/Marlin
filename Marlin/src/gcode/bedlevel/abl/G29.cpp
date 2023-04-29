@@ -59,6 +59,10 @@
 #define DEBUG_OUT ENABLED(DEBUG_LEVELING_FEATURE)
 #include "../../../core/debug_out.h"
 
+#if ENABLED (BABYSTEP_DISPLAY_TOTAL)
+  #include "../../../feature/babystep.h"
+#endif
+
 #if ABL_USES_GRID
   #if ENABLED(PROBE_Y_FIRST)
     #define PR_OUTER_VAR  abl.meshCount.x
@@ -257,6 +261,16 @@ G29_TYPE GcodeSuite::G29() {
 
   // Don't allow auto-leveling without homing first
   if (homing_needed_error()) G29_RETURN(false, false);
+  
+    #if ENABLED(BLTOUCH)
+    if(!probe.is_exist()) {  // probe not exist
+      #if HAS_DISPLAY        // It's means that the Bltouch is not ready
+        ui.status_printf_P(0, PSTR("Bltouch not ready!"));
+      #endif
+      SERIAL_ECHO_MSG("(Optional) Please check whether your printer has Bltouch");
+      G29_RETURN(false);
+    }
+  #endif
 
   // 3-point leveling gets points from the probe class
   #if ENABLED(AUTO_BED_LEVELING_3POINT)
@@ -567,7 +581,11 @@ G29_TYPE GcodeSuite::G29() {
       #elif ENABLED(AUTO_BED_LEVELING_BILINEAR)
 
         const float newz = abl.measured_z + abl.Z_offset;
-        abl.z_values[abl.meshCount.x][abl.meshCount.y] = newz;
+        abl.z_values[abl.meshCount.x][abl.meshCount.y] = newz
+            #if ENABLED (BABYSTEP_DISPLAY_TOTAL)
+              + planner.steps_to_mm[Z_AXIS] * babystep.axis_total[BS_TOTAL_IND(Z_AXIS)]
+            #endif
+            ;		
         TERN_(EXTENSIBLE_UI, ExtUI::onMeshUpdate(abl.meshCount, newz));
 
         if (DEBUGGING(LEVELING)) DEBUG_ECHOLNPGM_P(PSTR("Save X"), abl.meshCount.x, SP_Y_STR, abl.meshCount.y, SP_Z_STR, abl.measured_z + abl.Z_offset);
@@ -936,6 +954,14 @@ G29_TYPE GcodeSuite::G29() {
   probe.use_probing_tool(false);
 
   report_current_position();
+  
+  if (isnan(abl.measured_z)) {
+    reset_bed_level();
+  } else {
+    #if ENABLED (BABYSTEP_DISPLAY_TOTAL)
+      babystep.reset_total(Z_AXIS);
+    #endif
+  }
 
   G29_RETURN(isnan(abl.measured_z), true);
 }
